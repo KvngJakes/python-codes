@@ -53,7 +53,7 @@ while True:
                     index = (index + 1) % 12
                     sim_board_1[index] += 1
                     seeds -= 1
-                    sim_last_index = index
+                    sim_last_index_1 = index
                 
                 
                 captured = 0
