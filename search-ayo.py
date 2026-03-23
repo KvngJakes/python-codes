@@ -7,13 +7,15 @@ print(f'FULL BOARD: {board}')
 print(board[0:6])
 print(board[6:12])
 
-# -------- INPUT --------
+# -------- INPUT -------->>>
+
 current_player = int(input("Press 1 for player1 and 2 for player2: "))
 while current_player not in [1, 2]:
     current_player = int(input("Enter 1 or 2: "))
 
 
-# -------- SIMULATE MOVE --------
+# -------- SIMULATE MOVE -------->>>
+
 def simulate_move(board, pit, player):
     sim_board = board.copy()
     seeds = sim_board[pit]
@@ -41,6 +43,7 @@ def simulate_move(board, pit, player):
         index = (index - 1) % 12
 
     # Prevent illegal capture
+
     if player == 2 and sum(sim_board[0:6]) == 0:
         captured = 0
     elif player == 1 and sum(sim_board[6:12]) == 0:
@@ -49,14 +52,15 @@ def simulate_move(board, pit, player):
     return sim_board, captured
 
 
-# -------- EVALUATION FUNCTION --------
+# -------- EVALUATION FUNCTION -------->>>>
+
 def evaluate_board(board, score_gain):
     ai_side = sum(board[6:12])
     player_side = sum(board[0:6])
     return score_gain + (ai_side - player_side) * 0.2
 
 
-# -------- 3-MOVE LOOKAHEAD AI --------
+# -------- 3-MOVE LOOKAHEAD AI -------->>>>>
 def evaluate_3_moves(board):
     best_score = -999
     best_pit = None
@@ -73,6 +77,7 @@ def evaluate_3_moves(board):
         worst_case = 999
 
         # PLAYER MOVE
+
         for player_pit in range(0, 6):
             if board1[player_pit] == 0:
                 continue
@@ -82,6 +87,7 @@ def evaluate_3_moves(board):
             best_followup = -999
 
             # AI SECOND MOVE
+
             for ai_pit2 in range(6, 12):
                 if board2[ai_pit2] == 0:
                     continue
@@ -97,6 +103,7 @@ def evaluate_3_moves(board):
                     best_followup = total
 
                 # Alpha-Beta pruning
+
                 if best_followup > alpha:
                     alpha = best_followup
 
@@ -119,7 +126,8 @@ def evaluate_3_moves(board):
     return best_pit
 
 
-# -------- MAIN GAME LOOP --------
+# -------- MAIN GAME LOOP -------->>>>
+
 while True:
 
     if current_player == 1:
@@ -158,7 +166,7 @@ while True:
                 seeds -= 1
                 last_index = index
 
-    # -------- CAPTURE --------
+    # -------- CAPTURE -------->>>
     if current_player == 1:
         opponent_range = range(6, 12)
     else:
@@ -173,6 +181,7 @@ while True:
         index = (index - 1) % 12
 
     # Prevent illegal capture
+    
     if current_player == 1 and sum(board[6:12]) == 0:
         captured = 0
     elif current_player == 2 and sum(board[0:6]) == 0:
@@ -187,7 +196,8 @@ while True:
     print(f"Scores -> Player1: {score1}, Player2: {score2}")
     print(f"Board: {board}")
 
-    # -------- GAME END --------
+    # -------- GAME END -------->>>>>
+    
     if sum(board[0:6]) == 0 or sum(board[6:12]) == 0:
         score1 += sum(board[0:6])
         score2 += sum(board[6:12])
@@ -204,5 +214,6 @@ while True:
 
         break
 
-    # -------- SWITCH PLAYER --------
+    # -------- SWITCH PLAYER -------->>>>>
+
     current_player = 2 if current_player == 1 else 1
