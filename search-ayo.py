@@ -67,12 +67,12 @@ while True:
                 
                 sim_score2_1 += captured_1
                 
-                if sum(sim)_board_1[0:6]) == 0 or sum(sim_board_1[6:12]) == 0:
-                    final_score = sim_score2_1 + sum(sim_board_1[6:12])
-                    if final_score > best_score_ai:
+            if sum(sim_board_1[0:6]) == 0 or sum(sim_board_1[6:12]) == 0:
+                final_score = sim_score2_1 + sum(sim_board_1[6:12])
+                if final_score > best_score_ai:
                         best_score_ai = final_score
                         best_pit_ai = pit
-                    continue
+                continue
             best_player_resp_score = -1
             for player_pit in range(0, 6):
                 if sim_board_1[player_pit] > 0:
