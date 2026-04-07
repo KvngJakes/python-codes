@@ -9,7 +9,7 @@ print(f'FULL BOARD: {board}')
 print(board[0:6])
 print(board[6:12])
 
-# ✅ Input validation
+
 current_player = int(input("Press 1 for player1 and 2 for player2: "))
 while current_player not in [1, 2]:
     current_player = int(input("Enter 1 or 2: "))
@@ -50,12 +50,12 @@ while True:
                 index = pit
 
                 while seeds > 0:
-                    index = (index + 1) % 12
+                    index = (index - 1) % 12
                     sim_board[index] += 1
                     seeds -= 1
                     sim_last_index = index
 
-                # ✅ Capture simulation
+                # Capture simulation
                 captured = 0
                 opponent_range = range(0, 6)
                 index = sim_last_index
@@ -63,15 +63,15 @@ while True:
                 while index in opponent_range and sim_board[index] in (2, 3):
                     captured += sim_board[index]
                     sim_board[index] = 0
-                    index = (index - 1) % 12  # ✅ FIXED
+                    index = (index - 1) % 12  
 
-                # ❗ Prevent illegal capture (empty opponent side)
+                
                 if sum(sim_board[0:6]) == 0:
                     captured = 0
 
                 sim_score2 += captured
 
-                # ✅ Slightly smarter scoring
+                
                 move_score = sim_score2 + sum(sim_board[6:12]) * 0.1
 
                 if move_score > best_score_ai:
@@ -105,9 +105,9 @@ while True:
     while index in opponent_range and board[index] in (2, 3):
         captured += board[index]
         board[index] = 0
-        index = (index - 1) % 12  # ✅ FIXED
+        index = (index - 1) % 12  
 
-    # ❗ Prevent illegal capture
+    
     if current_player == 1 and sum(board[6:12]) == 0:
         captured = 0
     elif current_player == 2 and sum(board[0:6]) == 0:
