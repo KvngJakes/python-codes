@@ -35,12 +35,6 @@ def display_board(board, score1, score2):
 
 display_board(board, score1, score2)
 
-
-#print("\nBoard:")
-#print("Computer:", board[11:5:-1])
-#print("Player:  ", board[0:6])
-#print(f"Scores -> You: {score1} | AI: {score2}\n")
-
 # -------- INPUT --------
 current_player = int(input("Press 1 for player1 and 2 for player2: "))
 while current_player not in [1, 2]:
@@ -183,9 +177,7 @@ while True:
         score2 += captured
 
     display_board(board, score1, score2)
-    #print(f'{board[0:6]}      {score1}')
-    #print(f'{board[6:12]}      {score2}')
-
+    
     # -------- GAME END --------
     if sum(board[0:6]) == 0 or sum(board[6:12]) == 0:
         score1 += sum(board[0:6])
