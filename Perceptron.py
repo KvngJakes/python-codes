@@ -1,26 +1,24 @@
 import numpy as np
 import pandas as pd
 
-# =========================
-# LOAD DATA FROM EXCEL
-# =========================
 
-# Read the Excel file into a table (DataFrame)
-df = pd.read_excel("your_data.xlsx")
+"""
+LOAD DATA FROM EXCEL
+"""
+
+
+df = pd.read_excel("leaves-w-stalks.xlsx")
 
 # Select input columns (features)
-# These are the values the model will learn from
+
 X = df[["length", "breadth", "stalk"]].values
 
-# Select output column (target)
-# This is what the model is trying to predict (0 or 1)
 y = df["target"].values
 
 # =========================
 # SET PARAMETERS
 # =========================
 
-# How fast the model learns (small step size)
 learning_rate = 0.01
 
 # How many times the model will go through the whole dataset
@@ -29,8 +27,6 @@ epochs = 1000
 # Get number of rows and columns in X
 n_samples, n_features = X.shape
 
-# Initialize weights (one weight per feature)
-# Start with zeros (no knowledge yet)
 weights = np.zeros(n_features)
 bias = 0
 
@@ -48,7 +44,7 @@ def activation(x):
 # =========================
 
 def train(X, y):
-    # Tell Python we are using the global variables weights and bias
+   
     global weights, bias
 
     # Repeat learning process many times (epochs)
