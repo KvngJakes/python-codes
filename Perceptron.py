@@ -8,12 +8,12 @@ LOAD DATA FROM EXCEL
 
 
 df = pd.read_excel("leaves-w-stalks.xlsx")
+df.columns = df.columns.str.strip()
 
 # Select input columns (features)
 
-X = df[["length", "breadth", "stalk"]].values
-
-y = df["target"].values
+X = df[["Length", "Breadth", "Stalk"]].values
+y = df["Target"].values
 
 # =========================
 # SET PARAMETERS
@@ -34,9 +34,7 @@ bias = 0
 # ACTIVATION FUNCTION
 # =========================
 
-# This function decides output: 0 or 1
 def activation(x):
-    # If value is >= 0, output 1 otherwise output 0
     return 1 if x >= 0 else 0
 
 # =========================
@@ -76,19 +74,10 @@ def train(X, y):
 # =========================
 
 def predict(X):
-    # List to store predictions
     results = []
-
-    # Loop through each row of input data
     for x_i in X:
-
-        # Calculate weighted sum + bias
         linear_output = np.dot(x_i, weights) + bias
-
-        # Convert to 0 or 1
-        y_pred = activation(linear_output)
-
-        # Save prediction
+        y_pred = activation(linear_output)      
         results.append(y_pred)
 
     # Return all predictions
@@ -98,18 +87,61 @@ def predict(X):
 # TRAIN THE MODEL
 # =========================
 
-# Train the perceptron using Excel data
 train(X, y)
 
 # =========================
-# TEST THE MODEL
+# SHOW LEARNED WEIGHTS
 # =========================
 
-# Make predictions using trained model
+print("\nPERCEPTRON TRAINING RESULTS")
+print("=" * 50)
+
+print(f"Weight for Length  : {weights[0]:.4f}")
+print(f"Weight for Breadth : {weights[1]:.4f}")
+print(f"Weight for Stalk   : {weights[2]:.4f}")
+print(f"Bias               : {bias:.4f}")
+
+# =========================
+# MAKE PREDICTIONS
+# =========================
+
 predictions = predict(X)
+predictions = np.array(predictions)
 
-# Print predicted values
-print("Predictions:", predictions)
+# =========================
+# CALCULATE ACCURACY
+# =========================
 
-# Print actual correct values from dataset
-print("Actual:     ", y.tolist())
+correct = np.sum(predictions == y)
+accuracy = (correct / len(y)) * 100
+
+print("\nMODEL PERFORMANCE")
+print("=" * 50)
+print(f"Correct Predictions : {correct}")
+print(f"Total Samples       : {len(y)}")
+print(f"Accuracy            : {accuracy:.2f}%")
+
+# =========================
+# SHOW ALL RESULTS
+# =========================
+
+print("\nDETAILED RESULTS")
+print("-" * 70)
+print("Sample\tLength\tBreadth\tStalk\tPredicted\tActual")
+print("-" * 70)
+
+for i in range(len(y)):
+    print(
+        f"{i+1}\t"
+        f"{X[i][0]:.1f}\t"
+        f"{X[i][1]:.1f}\t"
+        f"{X[i][2]:.1f}\t"
+        f"{predictions[i]}\t\t"
+        f"{y[i]}"
+    )
+
+predictions = np.array(predictions)
+
+correct = np.sum(predictions == y)
+
+accuracy = correct / len(y)
